@@ -29,6 +29,12 @@ const APPS = [
     description: "Shared book ratings with Isabelle.",
     icon: "📚",
   },
+  {
+    name: "Job Thirsty",
+    url: "https://job-streak-app.web.app",
+    description: "Shared daily job-application check-in with Michelle.",
+    icon: "🔥",
+  },
 ];
 
 function renderApps() {
