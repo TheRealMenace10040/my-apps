@@ -41,6 +41,12 @@ const APPS = [
     description: "Tailors your resume to a job posting using AI, generates a PDF.",
     icon: "📄",
   },
+  {
+    name: "Dennis Nguyen",
+    url: "https://therealmenace10040.github.io/dennis-nguyen-site/",
+    description: "Personal portfolio site — developer, data analyst, microbiologist.",
+    icon: "🧬",
+  },
 ];
 
 function renderApps() {
