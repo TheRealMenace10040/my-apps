@@ -35,6 +35,12 @@ const APPS = [
     description: "Shared daily job-application check-in with Michelle.",
     icon: "🔥",
   },
+  {
+    name: "Resume Tailor",
+    url: "https://resume-tailor-swart.vercel.app",
+    description: "Tailors your resume to a job posting using AI, generates a PDF.",
+    icon: "📄",
+  },
 ];
 
 function renderApps() {
