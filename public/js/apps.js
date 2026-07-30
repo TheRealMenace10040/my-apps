@@ -47,6 +47,12 @@ const APPS = [
     description: "Personal portfolio site — developer, data analyst, microbiologist.",
     icon: "🧬",
   },
+  {
+    name: "MicroBio Valve Hub",
+    url: "https://therealmenace10040.github.io/microbio-valve-hub/",
+    description: "Research reader for microbiology in heart-valve medical devices — search, filter, and save papers.",
+    icon: "🫀",
+  },
 ];
 
 function renderApps() {
