@@ -53,6 +53,12 @@ const APPS = [
     description: "Research reader for microbiology in heart-valve medical devices — search, filter, and save papers.",
     icon: "🫀",
   },
+  {
+    name: "Trivia Rush",
+    url: "https://therealmenace10040.github.io/trivia-rush/",
+    description: "Mobile trivia game — 10 categories, live Open Trivia DB questions, streak combo scoring.",
+    icon: "❓",
+  },
 ];
 
 function renderApps() {
