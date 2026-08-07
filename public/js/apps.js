@@ -59,6 +59,12 @@ const APPS = [
     description: "Mobile trivia game — 10 categories, live Open Trivia DB questions, streak combo scoring.",
     icon: "❓",
   },
+  {
+    name: "Tome & Table",
+    url: "https://therealmenace10040.github.io/dnd-character-tracker/",
+    description: "D&D 5e character creator and tracker — build a character, then manage HP, spells, and inventory.",
+    icon: "🎲",
+  },
 ];
 
 function renderApps() {
