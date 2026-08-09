@@ -65,6 +65,12 @@ const APPS = [
     description: "D&D 5e character creator and tracker — build a character, then manage HP, spells, and inventory.",
     icon: "🎲",
   },
+  {
+    name: "DexVR",
+    url: "https://dexvr-app.web.app",
+    description: "VR games trends dashboard — live player counts, aggregated news, and mod tracking.",
+    icon: "🥽",
+  },
 ];
 
 function renderApps() {
