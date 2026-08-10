@@ -71,6 +71,12 @@ const APPS = [
     description: "VR games trends dashboard — live player counts, aggregated news, and mod tracking.",
     icon: "🥽",
   },
+  {
+    name: "Deadlock Improvement Tracker",
+    url: "https://deadlock-improvement-tracker.vercel.app",
+    description: "Tracks tips, mastery progress, and post-game notes for Deadlock.",
+    icon: "🎮",
+  },
 ];
 
 function renderApps() {
