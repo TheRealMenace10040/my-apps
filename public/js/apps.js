@@ -77,6 +77,12 @@ const APPS = [
     description: "Tracks tips, mastery progress, and post-game notes for Deadlock.",
     icon: "🎮",
   },
+  {
+    name: "California AV Collision Dataset",
+    url: "https://therealmenace10040.github.io/av-collision-dataset/",
+    description: "Every California robotaxi crash report (DMV + NHTSA) in one searchable dataset.",
+    icon: "🚗",
+  },
 ];
 
 function renderApps() {
