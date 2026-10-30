@@ -1,87 +1,367 @@
 :root {
-  --bg: #0d0f12;
-  --bg-card: #16191e;
-  --border: #262b33;
-  --text: #e8eaed;
-  --text-muted: #9aa1ab;
-  --accent: #5eead4;
+  --board: #18191b;
+  --brass: #c9a24a;
+  --brass-hi: #e6c574;
+  --brass-lo: #8c6d2a;
+  --brass-dim: rgba(201, 162, 74, 0.3);
+  --text: #ecebe7;
+
+  --shared: #9c5a2b;
+  --play: #5f7480;
+  --tools: #a9abae;
+  --work: #d8b55a;
+  --work-ink: #18191b;
+
+  --gutter: clamp(16px, 4vw, 48px);
+  --index-h: 56px;
+  --fob-text: 14px;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-padding-top: calc(var(--index-h) + env(safe-area-inset-top));
+  scrollbar-color: var(--brass-dim) var(--board);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--bg);
   color: var(--text);
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  padding: 3rem 1.5rem 4rem;
+  font-family: "Archivo", system-ui, sans-serif;
+  background-color: var(--board);
+  background-image: radial-gradient(120% 70% at 50% 0%, rgba(255, 220, 160, 0.06), transparent 70%);
+  padding-bottom: calc(56px + env(safe-area-inset-bottom));
 }
 
-header {
-  max-width: 960px;
-  margin: 0 auto 2.5rem;
-  text-align: center;
+::selection {
+  background: var(--brass);
+  color: var(--board);
+}
+
+/* Covers the translucent status bar when installed on iOS. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top);
+  background: var(--board);
+  z-index: 3;
+}
+
+.desk {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: calc(28px + env(safe-area-inset-top)) var(--gutter) 14px;
 }
 
 h1 {
-  margin: 0 0 0.5rem;
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-h1 span {
-  color: var(--accent);
-}
-
-header p {
   margin: 0;
-  color: var(--text-muted);
+  font-size: clamp(30px, 6vw, 52px);
+  font-weight: 800;
+  font-stretch: 125%;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  line-height: 1;
 }
 
-.grid {
-  max-width: 960px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1.5rem;
-}
-
-.card {
-  display: block;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.5rem;
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-}
-
-.card:hover,
-.card:focus-visible {
-  transform: translateY(-4px);
-  border-color: var(--accent);
-  box-shadow: 0 8px 24px rgba(94, 234, 212, 0.15);
-}
-
-.card-icon {
-  font-size: 2rem;
-  display: block;
-  margin-bottom: 0.75rem;
-}
-
-.card-title {
-  margin: 0 0 0.4rem;
-  font-size: 1.1rem;
+.desk-sub {
+  margin: 8px 0 0;
+  font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brass);
 }
 
-.card-desc {
+.desk-hint {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .desk-hint {
+    display: inline;
+  }
+}
+
+/* Thumb index: brass tabs that jump to a row. */
+.index {
+  position: sticky;
+  top: env(safe-area-inset-top);
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+  min-height: var(--index-h);
+  align-items: center;
+  overflow-x: auto;
+  padding: 0 var(--gutter);
+  background: var(--board);
+  border-bottom: 1px solid var(--brass-dim);
+  scrollbar-width: none;
+}
+
+@media (min-width: 1184px) {
+  .index {
+    padding-left: calc((100vw - 1120px) / 2 + var(--gutter));
+  }
+}
+
+.tab {
+  flex: 1 0 auto;
+  justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 14px 0 10px;
+  border-radius: 4px;
+  background: var(--brass);
+  color: var(--board);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: inset 0 1px 0 var(--brass-hi), 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 479px) {
+  .index {
+    gap: 6px;
+  }
+
+  .tab {
+    gap: 6px;
+    padding: 0 8px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+  }
+}
+
+@media (min-width: 640px) {
+  .tab {
+    flex-grow: 0;
+  }
+}
+
+.tab::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 2px solid var(--board);
+  background: var(--row);
+}
+
+.tab:hover {
+  background: var(--brass-hi);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--brass-hi);
+  outline-offset: 3px;
+}
+
+.tab--shared, .row--shared { --row: var(--shared); --ink: #fff; }
+.tab--play, .row--play { --row: var(--play); --ink: #fff; }
+.tab--tools, .row--tools { --row: var(--tools); --ink: var(--work-ink); }
+.tab--work, .row--work { --row: var(--work); --ink: var(--work-ink); }
+.tab--other, .row--other { --row: var(--brass-lo); --ink: #fff; }
+
+.board {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.row {
+  padding-top: 30px;
+}
+
+.row h2 {
+  margin: 0 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--brass-dim);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.hooks {
+  list-style: none;
   margin: 0;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  line-height: 1.4;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 12px;
+}
+
+@media (min-width: 640px) {
+  .hooks {
+    grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+    gap: 16px 18px;
+  }
+}
+
+/* Each slot carries its own brass hook: a screwed plate and a stem down to the ring. */
+.hooks li {
+  position: relative;
+  padding-top: 34px;
+}
+
+.hooks li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 18px;
+  height: 10px;
+  margin-left: -9px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--brass-hi), var(--brass) 60%, var(--brass-lo));
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+.hooks li::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 4px;
+  height: 20px;
+  margin-left: -2px;
+  border-radius: 0 0 2px 2px;
+  background: linear-gradient(90deg, var(--brass-hi), var(--brass-lo));
+}
+
+/* The fob: moulded plastic tag hanging from a brass ring. */
+.fob {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 100%;
+  min-height: 108px;
+  padding: 24px 14px 20px;
+  border-radius: 16px 16px 34px 34px / 16px 16px 44px 44px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 38%),
+    var(--row);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: var(--fob-text);
+  line-height: 1.3;
+  box-shadow:
+    inset 0 -3px 0 rgba(0, 0, 0, 0.18),
+    0 10px 18px -6px rgba(0, 0, 0, 0.7);
+  transform-origin: 50% -14px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Brass ring through the punched hole, hanging on the hook. */
+.fob::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  margin-left: -11px;
+  border-radius: 50%;
+  border: 3px solid var(--brass);
+  background: var(--board);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+.fob-num {
+  font-size: 26px;
+  font-weight: 800;
+  font-stretch: 125%;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.fob-name {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  text-wrap: balance;
+}
+
+/* Phones show number and name only; descriptions join on wider boards. */
+.fob-desc {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .fob {
+    min-height: 150px;
+    padding-top: 26px;
+  }
+
+  .fob-desc {
+    font-weight: 500;
+    font-stretch: 88%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+.fob:focus-visible,
+.fob.is-armed {
+  outline: 3px solid var(--brass-hi);
+  outline-offset: 5px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Its own name, so the class restarts it even over the hover swing. */
+  .fob.is-swinging,
+  .fob.is-swinging:hover {
+    animation: swing-press 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .fob.is-armed {
+    animation: stir 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .fob:hover {
+    animation: swing 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+@keyframes swing {
+  0% { transform: rotate(0); }
+  20% { transform: rotate(6deg); }
+  45% { transform: rotate(-3.5deg); }
+  70% { transform: rotate(1.4deg); }
+  100% { transform: rotate(0); }
+}
+
+@keyframes swing-press {
+  0% { transform: rotate(0); }
+  20% { transform: rotate(6deg); }
+  45% { transform: rotate(-3.5deg); }
+  70% { transform: rotate(1.4deg); }
+  100% { transform: rotate(0); }
+}
+
+@keyframes stir {
+  0% { transform: rotate(0); }
+  40% { transform: rotate(2deg); }
+  100% { transform: rotate(0); }
 }
